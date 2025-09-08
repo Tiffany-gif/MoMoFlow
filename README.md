@@ -14,6 +14,12 @@ On the frontend, a dashboard provides insights into:
 
 This project demonstrates **ETL (Extract, Transform, Load) pipelines, relational database management, and frontend visualization** skills in a collaborative Agile workflow.
 
+## System Architecture
+
+The diagram below illustrates the overall flow of MoMoFlow, from data extraction to visualization
+[View our Architecture Diagram here](https://app.diagrams.net/#G1eqeeRP8Qi9qhRQbUf0_CcVbUrzm4lOa5#%7B%22pageId%22%3A%22KhwDIHSNujK45m27qN_c%22%7D)
+
+
 ## Team Members
 - Emma Tiffany Umwari – Tiffanygif 
 - Keyla Bineza Nyacyesa – KeylaNyacyesa  
@@ -22,3 +28,4 @@ This project demonstrates **ETL (Extract, Transform, Load) pipelines, relational
 ## Scrum Board 
 We are using GitHub Projects to manage our Agile Workflow.
 [View our Scrum Board here](https://github.com/users/Tiffany-gif/projects/1)
+
