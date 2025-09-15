@@ -1,0 +1,7 @@
+USE Momoflow;
+CREATE TABLE IF NOT EXISTS Users (
+    UniqueID INT AUTO_INCREMENT PRIMARY KEY,
+    Full_name VARCHAR(100) NOT NULL,
+    Phone_number VARCHAR(15) NOT NULL,
+    account_number VARCHAR(20) UNIQUE NOT NULL
+);
