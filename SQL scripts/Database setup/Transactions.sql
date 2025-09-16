@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS Transactions (
     status ENUM('pending','completed','failed') NOT NULL,
     sender_id INT NOT NULL,
     receiver_id INT NOT NULL,
-    category_id INT NOT NULL,
+    Category_id INT NOT NULL,
     FOREIGN KEY (sender_id) REFERENCES Users(UniqueID),
     FOREIGN KEY (receiver_id) REFERENCES Users(UniqueID),
-    FOREIGN KEY (category_id) REFERENCES Transaction_Categories(Category_id)
+    FOREIGN KEY (Category_id) REFERENCES Transaction_Categories(Category_id)
 );
