@@ -6,5 +6,5 @@ CREATE TABLE IF NOT EXISTS User_log (
     message TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     transaction_id INT,
-    FOREIGN KEY (transaction_id) REFERENCES Transactions(transaction_id)
+    FOREIGN KEY (transaction_id) REFERENCES Transactions(Transaction_id)
 );
