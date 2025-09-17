@@ -1,7 +1,5 @@
 -- Database Setup
 
--- Create the database
-
 CREATE DATABASE IF NOT EXISTS Momoflow;
 USE Momoflow;
 
@@ -10,11 +8,10 @@ USE Momoflow;
 CREATE TABLE IF NOT EXISTS Users (
     UniqueID INT AUTO_INCREMENT PRIMARY KEY COMMENT 'User ID',
     Full_name VARCHAR(100) NOT NULL COMMENT 'Full name of the user',
-    Phone_number VARCHAR(15) NOT NULL COMMENT 'User phone number',
+    Phone_number VARCHAR(15) NOT NULL UNIQUE COMMENT 'User phone number',
     CHECK (CHAR_LENGTH(Phone_number) BETWEEN 10 AND 15)
 );
 
--- Index for faster phone lookups
 CREATE INDEX idx_phone_number ON Users (Phone_number);
 
 -- Accounts Table
@@ -27,21 +24,20 @@ CREATE TABLE IF NOT EXISTS Accounts (
     FOREIGN KEY (user_id) REFERENCES Users(UniqueID)
 );
 
--- Index for account number lookups
 CREATE INDEX idx_account_number ON Accounts (account_number);
 
 -- User Roles Table
 
 CREATE TABLE IF NOT EXISTS User_role (
-    role_id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Unique identifier for role',
-    role_name VARCHAR(50) NOT NULL COMMENT 'Role: Admin, Customer, Vendor'
+    role_id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Role ID',
+    role_name VARCHAR(50) NOT NULL COMMENT 'Role name: Admin, Customer'
 );
 
 -- Transaction Categories Table
 
 CREATE TABLE IF NOT EXISTS Transaction_Categories (
     Category_id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Category ID',
-    category_name VARCHAR(50) NOT NULL COMMENT 'Category: Cash-in, Cash-out, Purchase'
+    category_name VARCHAR(50) NOT NULL COMMENT 'Transaction category: Cash-in, Cash-out, Purchase'
 );
 
 -- Transactions Table
@@ -62,7 +58,6 @@ CREATE TABLE IF NOT EXISTS Transactions (
     CHECK (amount > 0)
 );
 
--- Indexes for transactions
 CREATE INDEX idx_transaction_ref ON Transactions (transaction_ref);
 CREATE INDEX idx_transaction_date ON Transactions (transaction_date);
 
@@ -80,7 +75,7 @@ CREATE TABLE IF NOT EXISTS User_role_assignment (
 
 CREATE TABLE IF NOT EXISTS User_log (
     log_id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Log entry ID',
-    log_type ENUM('INFO','ERROR','WARNING') NOT NULL COMMENT 'Type of log entry: INFO, ERROR, WARNING',
+    log_type ENUM('INFO','ERROR','WARNING') NOT NULL COMMENT 'Type of log',
     message TEXT COMMENT 'Detailed log message',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Time of log creation',
     transaction_id INT COMMENT 'Related transaction ID if applicable',
