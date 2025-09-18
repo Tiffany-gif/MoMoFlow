@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS User_role (
 
 CREATE TABLE IF NOT EXISTS Transaction_Categories (
     Category_id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Category ID',
-    category_name VARCHAR(50) NOT NULL COMMENT 'Transaction category: Cash-in, Cash-out, Purchase'
+    category_name VARCHAR(50) NOT NULL UNIQUE COMMENT 'Transaction category: Cash-in, Cash-out, Purchase'
 );
 
 -- Transactions Table
