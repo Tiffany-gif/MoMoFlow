@@ -1,0 +1,163 @@
+{
+    "schemas": {
+        "User": {
+            "user_id": "integer",
+            "full_name": "string",
+            "phone_number": "string",
+            "roles": [
+                {
+                    "role_id": "integer",
+                    "role_name": "string"
+                }
+            ],
+            "Accounts": [
+                {
+                    "account_id": "integer",
+                    "account_number": "string",
+                    "account_type": "string (Personal/Business/Agent)"
+                }
+            ]
+        },
+        "Transaction Categories": {
+            "category_id": "integer",
+            "category_name": "string",
+            "description": "string"
+        },
+        "User_log": {
+            "log_id": "integer",
+            "log_type": "string (INFO/ERROR/WARNING)",
+            "message": "string",
+            "created_at": "string (ISO 8601 datetime)",
+            "transaction_id": "integer (FK to Transaction)"
+        },
+        "Transaction": {
+            "transaction_id": "integer",
+            "transaction_ref": "string",
+            "amount": "decimal",
+            "currency": "string",
+            "transaction_date": "string (ISO 8601 datetime)",
+            "status": "string (Pending/Completed/Failed)",
+            "sender": {
+                "account_id": "integer",
+                "account_number": "string",
+                "account_type": "string (Personal/Business/Agent)",
+                "user": {
+                    "user_id": "integer",
+                    "full_name": "string",
+                    "phone_number": "string"
+                },
+                "receiver": {
+                    "account_id": "integer",
+                    "account_number": "string",
+                    "account_type": "string (Personal/Business/Agent)",
+                    "user": {
+                        "user_id": "integer",
+                        "full_name": "string",
+                        "phone_number": "string"
+                    },
+                    "category": {
+                        "$ref": "Transaction Categories"
+                    },
+                    "logs": [
+                        {
+                            "$ref": "User_log"
+                        }
+                    ]
+                }
+            },
+            "examples": {
+                "User": {
+                    "user_id": 101,
+                    "full_name": "Ashelia",
+                    "phone_number": "+250788123456",
+                    "roles": [
+                        {
+                            "role_id": 1,
+                            "role_name": "Admin"
+                        },
+                        {
+                            "role_id": 2,
+                            "role_name": "Customer"
+                        }
+                    ],
+                    "accounts": [
+                        {
+                            "account_id": 501,
+                            "account_number": "ACCT-00987",
+                            "account_type": "Personal"
+                        }
+                    ]
+                },
+                "TransactionCategory": {
+                    "category_id": 1,
+                    "category_name": "Money Transfer",
+                    "description": "Peer-to-peer mobile transfer"
+                },
+                "user_log": {
+                    "log_id": 301,
+                    "log_type": "INFO",
+                    "message": "Transaction completed successfully",
+                    "created_at": "2025-09-16T10:32:00Z",
+                    "transaction_id": 5001
+                }
+            },
+            "complex_transaction_example": {
+                "transaction_id": 5001,
+                "transaction_ref": "TX-2025-0001",
+                "amount": 150.75,
+                "currency": "USD",
+                "transaction_date": "2025-09-16T10:30:00Z",
+                "status": "Completed",
+                "sender": {
+                    "account_id": 501,
+                    "account_number": "ACCT-00123",
+                    "account_type": "Personal",
+                    "user": {
+                        "user_id": 101,
+                        "full_name": "Ashelia",
+                        "phone_number": "+250788123456"
+                    }
+                },
+                "receiver": {
+                    "account_id": 601,
+                    "account_number": "ACCT-00456",
+                    "account_type": "Business",
+                    "user": {
+                        "user_id": 102,
+                        "full_name": "Dylan Corp",
+                        "phone_number": "+250788654321"
+                    }
+                },
+                "category": {
+                    "category_id": 1,
+                    "category_name": "Money Transfer",
+                    "description": "Peer-to-peer mobile transfer"
+                },
+                "user_logs": [
+                    {
+                        "log_id": 301,
+                        "log_type": "INFO",
+                        "message": "Transaction completed successfully",
+                        "created_at": "2025-09-16T10:32:00Z",
+                        "transaction_id": 5001
+                    },
+                    {
+                        "log_id": 302,
+                        "log_type": "INFO",
+                        "message": "Receiver notified via SMS",
+                        "created_at": "2025-09-16T10:35:00Z",
+                        "transaction_id": 5001
+                    }
+                ]
+            },
+            "mapping_notes": {
+                "users": "Serialized as 'user' inside sender_account/receiver_account, sourced from Users table.",
+                "accounts": "Serialized as nested objects inside User and as sender_account/receiver_account in Transaction.",
+                "transaction_category": "Serialized as 'category' object inside transaction.",
+                "user_roles": "Serialized as nested 'roles' array inside each user, joined via User_role_assignment.",
+                "user_logs": "Serialized as 'logs' array of log objects inside transaction, sourced from the User_log table.",
+                "transaction": "Serialized as the root object in API response containing all nested entities."
+            }
+        }
+    }
+}
