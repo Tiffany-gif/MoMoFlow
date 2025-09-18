@@ -8,7 +8,7 @@ USE Momoflow;
 CREATE TABLE IF NOT EXISTS Users (
     UniqueID INT AUTO_INCREMENT PRIMARY KEY COMMENT 'User ID',
     Full_name VARCHAR(100) NOT NULL COMMENT 'Full name of the user',
-    Phone_number VARCHAR(15) NOT NULL UNIQUE COMMENT 'User phone number',
+    Phone_number VARCHAR(15) UNIQUE NOT NULL COMMENT 'User phone number',
     CHECK (CHAR_LENGTH(Phone_number) BETWEEN 10 AND 15)
 );
 
