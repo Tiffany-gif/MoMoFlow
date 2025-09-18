@@ -30,7 +30,7 @@ CREATE INDEX idx_account_number ON Accounts (account_number);
 
 CREATE TABLE IF NOT EXISTS User_role (
     role_id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Role ID',
-    role_name VARCHAR(50) NOT NULL COMMENT 'Role name: Admin, Customer'
+    role_name VARCHAR(50) NOT NULL UNIQUE COMMENT 'Role name: Admin, Customer Vendor'
 );
 
 -- Transaction Categories Table
