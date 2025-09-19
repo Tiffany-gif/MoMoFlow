@@ -32,12 +32,14 @@ We are using GitHub Projects to manage our Agile Workflow.
 # Documentation
 Database Design Documentation
 
-The MoMoFlow database schema was designed for secure, scalable, and extensible processing of mobile money. At its core, the Users table manages customer identity and enforces unique phone numbers as the sole contact and authentication column. To provide system flexibility, user access levels are split into a User_role table, with a User_role_assignment many-to-many junction table enabling an M:N relationship. This design allows for a single user to have multiple roles (e.g., customer, admin) and supports role integrity.
+When building the MoMoFlow database, our goal was to make it both reliable and flexible, since it needs to handle sensitive mobile money transactions while also being easy to scale as the system grows.
 
-The Accounts table is the users' financial wallet presentation, with account number uniqueness and direct reference to users through one-to-many (1:N) relationship. Transactions go through the Transactions table, which enforces necessary constraints such as unique transaction references, positive amounts, and non-null sender/receiver accounts. This ensures data correctness and prevents incorrect financial postings.
+We started with the Users table, which stores customer information. Every user must have a unique phone number, since that’s the main way people identify themselves in mobile money systems. From there, each user can have multiple Accounts (for example, a personal wallet and a business wallet). This one-to-many setup makes sense because one person can manage different accounts, but every account always belongs to one specific user.
 
-To support categorization and reporting, Transaction_Categories provide a structured classification of payments (e.g., bills, transfers, airtime). This improves usability, analysis, and regulatory compliance. Meanwhile, User_log logs system and transaction events with time stamps to maintain traceability, accountability, and audit-readiness.
+To manage system access, we created a User_role table and linked it to users through a User_role_assignment table. This design allows a single user to take on more than one role (like being both a customer and an admin) while keeping the database clean and organized.
 
-The crow's foot notation facilitates easy expression of cardinalities and separating concerns in tables prevents redundancy and improves normalization. The junction table design was chosen as the best way to support complex user-role relationships without sacrificing database integrity.
+The heart of the system is the Transactions table. It keeps track of every payment or transfer and makes sure key details like reference numbers, sender/receiver accounts, and amounts are valid. We also added Transaction_Categories to organize transactions into groups (like bills, transfers, airtime). This makes reporting and analysis much easier.
 
-Overall, this ERD is generally balanced between relational integrity, performance, and extensibility to support the needs of MoMoFlow as a secure financial service and as a user growth platform.
+Finally, the User_log table records what happens with each transaction, creating an audit trail for transparency and accountability.
+
+Altogether, this design avoids redundancy, enforces strong rules for data integrity, and leaves room for MoMoFlow to expand as the platform grows.
