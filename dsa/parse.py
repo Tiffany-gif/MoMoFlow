@@ -4,8 +4,9 @@ import json
 import os
 import re
 
-RAW_FILE = "data/raw/modified_sms_v2.xml"
-PROCESSED_FILE = "data/processed/sms_data.json"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RAW_FILE = os.path.join(BASE_DIR, "data", "raw", "modified_sms_v2.xml")
+PROCESSED_FILE = os.path.join(BASE_DIR, "data", "processed", "sms_data.json")
 
 
 def parse_sms_xml():
