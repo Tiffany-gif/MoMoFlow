@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from db import get_transaction, add_transaction, update_transaction, delete_transaction, load_transactions
+from schemas import validate_transaction
 
 USERNAME = "admin"
 PASSWORD = "password"
@@ -53,6 +54,13 @@ class RequestHandler(BaseHTTPRequestHandler):
             content_length = int(self.headers["Content-Length"])
             body = self.rfile.read(content_length)
             data = json.loads(body.decode())
+
+            valid, error = validate_transaction(data)
+            if not valid:
+                self._set_headers(400)
+                self.wfile.write(json.dumps({"error": error}).encode())
+                return
+
             new_tx = add_transaction(data)
             self._set_headers(201)
             self.wfile.write(json.dumps(new_tx).encode())
@@ -68,6 +76,13 @@ class RequestHandler(BaseHTTPRequestHandler):
             content_length = int(self.headers["Content-Length"])
             body = self.rfile.read(content_length)
             data = json.loads(body.decode())
+
+            valid, error = validate_transaction(data)
+            if not valid:
+                self._set_headers(400)
+                self.wfile.write(json.dumps({"error": error}).encode())
+                return
+
             updated = update_transaction(tid, data)
             if updated:
                 self._set_headers()
@@ -98,7 +113,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 def run(server_class=HTTPServer, handler_class=RequestHandler, port=8000):
     server_address = ("", port)
     httpd = server_class(server_address, handler_class)
-    print(f"🚀 Server running on port {port}")
+    print(f"Server running on port {port}")
     httpd.serve_forever()
 
 if __name__ == "__main__":
