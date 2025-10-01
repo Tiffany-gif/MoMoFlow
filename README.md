@@ -54,7 +54,6 @@ Altogether, this design avoids redundancy, enforces strong rules for data integr
 
 ### 1. Clone the Repository
 
-```bash
 git clone <your-repo-url>
 cd MoMoFlow
 
