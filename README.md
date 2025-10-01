@@ -66,7 +66,7 @@ A simple REST API for managing transactions using Python's built-in `http.server
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
+git clone <repository-url>
 cd MoMoFlow
 ```
 
