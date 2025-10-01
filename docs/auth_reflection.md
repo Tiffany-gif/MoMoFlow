@@ -24,4 +24,3 @@ We protected every endpoint with **HTTP Basic Authentication**. The server expec
 - **API keys per client**: simple, rotateable, and revocable (but still use HTTPS).
 - **Mutual TLS** for service-to-service trust in internal networks.
 
-**Recommendation:** For production, replace Basic Auth with a small `/login` that returns a short-lived **JWT**, enforce HTTPS, rotate secrets, and add role-based checks (e.g., only Admin can DELETE).
