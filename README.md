@@ -53,7 +53,7 @@ Altogether, this design avoids redundancy, enforces strong rules for data integr
 - Text editor (VS Code, PyCharm, etc.)
 
 ### 1. Clone the Repository
-
+```bash
 git clone <your-repo-url>
 cd MoMoFlow
 
