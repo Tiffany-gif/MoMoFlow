@@ -25,8 +25,8 @@ Unauthenticated / wrong creds → 401 Unauthorized
 
 Resource Model: Transaction
 
-Your API stores transactions as raw JSON objects in data/processed/sms_data.json.
-POST and PUT must include all fields (your team chose “keep it raw”).
+Our API stores transactions as raw JSON objects in data/processed/sms_data.json.
+POST and PUT include all fields.
 
 Fields
 
